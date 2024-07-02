@@ -86,7 +86,7 @@ pub async fn tailwind_process(cmd: &str, tw_conf: &TailwindConfig) -> Result<(St
         "--output",
         tw_conf.tmp_file.as_str(),
     ];
-    let line = format!("{} {}", cmd, args.join(" "));
+    let line = format!("{} {} {}", cmd, args.join(" "), tw_conf.extra_args);
     let mut command = Command::new(tailwind);
     command.args(args);
 

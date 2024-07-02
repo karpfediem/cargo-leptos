@@ -16,6 +16,7 @@ use lightningcss::{
     targets::Targets,
 };
 use std::sync::Arc;
+use log::log;
 use tokio::task::JoinHandle;
 
 pub async fn style(
@@ -113,6 +114,7 @@ async fn process_css(proj: &Project, css: String) -> Result<Product> {
     let style_output = stylesheet.to_css(options)?;
 
     let bytes = style_output.code.as_bytes();
+    let bytes = css.as_bytes();
 
     let prod = match proj.site.updated_with(&proj.style.site_file, bytes).await? {
         true => {

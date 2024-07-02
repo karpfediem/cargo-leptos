@@ -8,6 +8,7 @@ pub struct TailwindConfig {
     pub input_file: Utf8PathBuf,
     pub config_file: Utf8PathBuf,
     pub tmp_file: Utf8PathBuf,
+    pub extra_args: String,
 }
 
 impl TailwindConfig {
@@ -28,11 +29,13 @@ impl TailwindConfig {
         );
 
         let tmp_file = conf.tmp_dir.join("tailwind.css");
+        let extra_args = conf.tailwind_extra_args.clone().unwrap_or_default();
 
         Ok(Some(Self {
             input_file,
             config_file,
             tmp_file,
+            extra_args
         }))
     }
 }
