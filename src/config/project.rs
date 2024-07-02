@@ -97,7 +97,11 @@ impl Project {
 
             let bin = BinPackage::resolve(cli, metadata, &project, &config, bin_args)?;
 
-            let hash_file = HashFile::new(&bin, config.hash_file_name.as_ref());
+            let hash_file = HashFile::new(
+                &metadata.target_directory,
+                &bin.profile,
+                config.hash_file_name.as_ref(),
+            );
 
             let proj = Project {
                 working_dir: metadata.workspace_root.clone(),
@@ -180,6 +184,7 @@ pub struct ProjectConfig {
     pub hash_files: bool,
     pub tailwind_input_file: Option<Utf8PathBuf>,
     pub tailwind_config_file: Option<Utf8PathBuf>,
+    pub tailwind_extra_args: Option<String>,
     /// assets dir. content will be copied to the target/site dir
     pub assets_dir: Option<Utf8PathBuf>,
     /// js dir. changes triggers rebuilds.
